@@ -22,7 +22,7 @@ def waist_size(Lgeo, RoC, wavelength): # Calculate the waist of the beam in the 
     waist = np.sqrt((wavelength/idxn*np.pi)*np.sqrt(2*Lgeo*(RoC-2*Lgeo)))
     return waist
 
-def circ_power(P_input, waist): # Calculate the intensity of the beam in the cavity
+def circ_power(P_input, waist): # Calculate the intensity of the beam in the cavity (supposing an input of 1W).
     power = P_input/waist**2
     return power
 
@@ -30,11 +30,23 @@ def Lgeo_cavity(length, width): # Return the geometric length of the cavity (def
     Lgeo_value=(length+np.sqrt((width/2)**2+length**2))/2
     return Lgeo_value
 
+def Lphys_cavity(Lgeo, length=None, width=None): # Return the physical length of the cavity given a specific width or length
+    if length is not None and width is None:  # Calculate based on length
+        Lphys_value = 4 * np.sqrt(Lgeo * (Lgeo - length))
+    elif length is None and width is not None:  # Calculate based on width
+        Lphys_value = (-width ** 2 + 16 * Lgeo ** 2) / (16 * Lgeo)
+    else:
+        raise ValueError("Either length or width should be provided.")
+    return Lphys_value
+
+
 def mirror_angle(length, width): # Return in radian the mirror angles for a fixed length & width (in meters)
     angle=0.5*np.arctan((width/2)/length)
     return angle
 
 def astigmatism_losses(theta, RoC, Lgeo): # Compute astigmatism losses (index, theta angle of the faces, RoC, Geometric length)
+    if (1-np.sin(theta)**2) < (1-idxn**2*np.sin(theta)**2): # To avoid square roots of negative numbers
+        return np.nan
     interface_losses=(np.sqrt((1-np.sin(theta)**2)/(1-idxn**2*np.sin(theta)**2))-1)**2
     reflected_losses=(0.25*RoC*theta**2*(1/(RoC-2*Lgeo)))**2
     astigmatism_losses=interface_losses+reflected_losses
@@ -66,10 +78,10 @@ def get_lengths(Lopt, carrier, g): # Returns all the resonnant length between L[
         closest_resonant_length = L00(carrier, q, g)
         return closest_resonant_length
 
-def plot_transmission(Lgeo, Fomc, RoC, fm, nm_max, ax):
+def plot_transmission(Lgeo, Fomc, RoC, fm, nm_max, ax): # Plot the transmission of a cavity & 
     Lopt=2*idxn*Lgeo
-    T_power = [Trans_factor(Lgeo, Fomc, RoC, freq, 0)**2 for freq in fm]
-    HoM_power = [Trans_factor(Lgeo, Fomc, RoC, 0, N)**2 for N in range(nm_max + 1)]
+    SB_trans = [Trans_factor(Lgeo, Fomc, RoC, freq, 0)**2 for freq in fm]
+    HoM_trans = [Trans_factor(Lgeo, Fomc, RoC, 0, N)**2 for N in range(nm_max + 1)]
     fsr = c / (2 * idxn * Lopt)
     df = np.arccos(np.sqrt(1-(2*Lgeo/RoC))) * c / (2 * np.pi * Lopt)
     limits = [df * nm_max, np.max(fm), 0.5 * fsr]
@@ -78,42 +90,42 @@ def plot_transmission(Lgeo, Fomc, RoC, fm, nm_max, ax):
     ax.plot(f_range / 1e6, Trans_factor(Lgeo, Fomc, RoC, f_range, 0)**2, label="Cavity transmission")
     ax.set_ylim(0, 1.2)
     
+    ax.arrow(-fm[0] / 1e6, 0, 0, SB_trans[0], head_width=10, head_length=0.03, color='red', alpha=1, length_includes_head=True, label="SBs")
     for i, freq in enumerate(fm):
         alpha = 1 - i / len(fm)
-        ax.arrow(-freq / 1e6, 0, 0, T_power[i], head_width=10, head_length=0.03, color='red', alpha=alpha, length_includes_head=True)
-        ax.arrow(freq / 1e6, 0, 0, T_power[i], head_width=10, head_length=0.03, color='red', alpha=alpha, length_includes_head=True)
+        ax.arrow(-freq / 1e6, 0, 0, SB_trans[i], head_width=10, head_length=0.03, color='red', alpha=alpha, length_includes_head=True)
+        ax.arrow(freq / 1e6, 0, 0, SB_trans[i], head_width=10, head_length=0.03, color='red', alpha=alpha, length_includes_head=True)
     
-    ax.arrow(df / 1e6, 0, 0, HoM_power[1], head_width=10, head_length=0.03, color='green', length_includes_head=True, label="HoMs")
-    for i, tem in enumerate(HoM_power[1:], start=1):
+    ax.arrow(df / 1e6, 0, 0, HoM_trans[1], head_width=10, head_length=0.03, color='green', length_includes_head=True, label="Carrier HoMs")
+    for i, tem in enumerate(HoM_trans[1:], start=1):
         ax.arrow((i * df) / 1e6, 0, 0, tem, head_width=10, head_length=0.03, color='green', length_includes_head=True)
     
     ax.set_xlabel('Frequency (MHz)')
-    ax.set_ylabel('Normalized transmitted power')
-    ax.set_title('Power transmitted by a Mode Cleaner Cavity')
+    ax.set_ylabel('Transmission')
+    ax.set_title('Transmission of a Mode Cleaner Cavity')
     ax.legend()
 
-def FoMvsRoC(Lgeo, Fomc, RoC_max, fm, P_HoMs): # Return the power transmitted by the HoMs.
-    rho_vect = np.linspace(2 * Lgeo, RoC_max, 10001) # RoC values
-    FoM_vect_car = np.zeros_like(rho_vect) # FoM of the carrier
-    FoM_vect_SB = np.zeros((len(fm), len(rho_vect))) # FoMs of the SBs
+def THOMvsRoC(Lgeo, Fomc, RoC_max, fm, P_HoMs, precision): # Return the power transmitted by the HoMs.
+    rho_vect = np.linspace(2*Lgeo, RoC_max, precision) # RoC values
+    T_HOMs_vect_car = np.zeros_like(rho_vect) # T_HOMs of the carrier
+    T_HOMs_vect_SB = np.zeros((len(fm), len(rho_vect))) # T_HOMs of the SBs
 
     for i, rho in enumerate(rho_vect):
         # Transmission of carrier TEM(mn)
-        FoM = 0
+        T_HOMs = 0
         for N in range(1, len(P_HoMs[0])):
             Tomc = Trans_factor(Lgeo, Fomc, rho, 0, N) # Compute the transmition
-            FoM += Tomc ** 2 * P_HoMs[0][N - 1] # Add the power transmitted to the FoM
-        FoM_vect_car[i] = FoM / (len(P_HoMs[0]) - 1) # Do a mean value
+            T_HOMs += Tomc ** 2 * P_HoMs[0][N - 1] # Add the power transmitted to the T_HOMs
+        T_HOMs_vect_car[i] = T_HOMs
         
         # Transmission of HoMs
-        for mode, Pmode in enumerate([P_HoMs[1], P_HoMs[2]]):
-            FoM = 0
+        for mode, Pmode in enumerate([P_HoMs[1], P_HoMs[2]]): # Loop first on 6MHz & then on 56MHz
+            T_HOMs = 0
             for N in range(1, len(Pmode)): # Lower SB
                 Tomc = Trans_factor(Lgeo, Fomc, rho, -fm[mode], N)
-                FoM += Tomc ** 2 * Pmode[N - 1] / 2
+                T_HOMs += Tomc ** 2 * Pmode[N - 1] / 2
             for N in range(1, len(Pmode)): # Upper SB
                 Tomc = Trans_factor(Lgeo, Fomc, rho, fm[mode], N)
-                FoM += Tomc ** 2 * Pmode[N - 1] / 2
-            FoM_vect_SB[mode][i] = FoM / (len(Pmode) - 1)
-    return rho_vect, FoM_vect_car, FoM_vect_SB
-
+                T_HOMs += Tomc ** 2 * Pmode[N - 1] / 2
+            T_HOMs_vect_SB[mode][i] = T_HOMs
+    return rho_vect, T_HOMs_vect_car, T_HOMs_vect_SB
