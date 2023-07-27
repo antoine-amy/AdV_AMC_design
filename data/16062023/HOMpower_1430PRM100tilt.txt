@@ -1,0 +1,101 @@
+---------------------------------------------------------------------------
+                  OSCAR V3.2  - DR nominal    
+  
+SB_num=1 frequency=6.2708MHz
+SB_num=2 frequency=8.361MHz
+SB_num=3 frequency=56.437MHz
+      
+Power of Carrier HOM with 100nrad tilt on PRM (W):
+Power content:
+Mode order 0     9.998e-01,
+Mode order 1     2.000e-04,
+Mode order 2     2.996e-09,
+Mode order 3     2.376e-09,
+Mode order 4     7.378e-11,
+Mode order 5     4.156e-12,
+Mode order 6     1.245e-09,
+Mode order 7     1.112e-10,
+Mode order 8     1.276e-07,
+Mode order 9     2.978e-11,
+Mode order 10     3.704e-08,
+Power of SB1 HOM with 100nrad tilt on PRM (W):
+Lower:
+Power content:
+Mode order 0     6.235e-01,
+Mode order 1     2.486e-01,
+Mode order 2     4.601e-02,
+Mode order 3     5.428e-02,
+Mode order 4     4.951e-03,
+Mode order 5     2.543e-03,
+Mode order 6     9.114e-03,
+Mode order 7     4.950e-03,
+Mode order 8     2.403e-03,
+Mode order 9     1.634e-03,
+Mode order 10     6.540e-04,
+Upper:
+Power content:
+Mode order 0     6.451e-01,
+Mode order 1     2.330e-01,
+Mode order 2     5.141e-02,
+Mode order 3     3.863e-02,
+Mode order 4     7.404e-03,
+Mode order 5     4.186e-03,
+Mode order 6     1.037e-02,
+Mode order 7     4.955e-03,
+Mode order 8     2.048e-03,
+Mode order 9     1.281e-03,
+Mode order 10     5.053e-04,
+Power of SB2 HOM with 100nrad tilt on PRM (W):
+Lower:
+Power content:
+Mode order 0     9.989e-01,
+Mode order 1     1.026e-03,
+Mode order 2     9.603e-06,
+Mode order 3     1.196e-05,
+Mode order 4     4.790e-07,
+Mode order 5     3.631e-07,
+Mode order 6     2.829e-07,
+Mode order 7     2.287e-07,
+Mode order 8     2.424e-07,
+Mode order 9     2.164e-07,
+Mode order 10     3.063e-07,
+Upper
+Power content:
+Mode order 0     9.989e-01,
+Mode order 1     1.110e-03,
+Mode order 2     1.754e-06,
+Mode order 3     6.247e-07,
+Mode order 4     4.991e-07,
+Mode order 5     9.176e-07,
+Mode order 6     3.615e-07,
+Mode order 7     1.167e-07,
+Mode order 8     2.175e-07,
+Mode order 9     3.984e-08,
+Mode order 10     1.941e-07,
+Power of SB3 HOM with 100nrad tilt on PRM (W):
+Lower
+Power content:
+Mode order 0     6.838e-01,
+Mode order 1     2.126e-01,
+Mode order 2     3.932e-02,
+Mode order 3     5.883e-02,
+Mode order 4     2.911e-03,
+Mode order 5     4.841e-04,
+Mode order 6     8.219e-04,
+Mode order 7     6.258e-04,
+Mode order 8     2.047e-04,
+Mode order 9     1.542e-04,
+Mode order 10     9.840e-05,
+Upper
+Power content:
+Mode order 0     7.227e-01,
+Mode order 1     1.854e-01,
+Mode order 2     5.364e-02,
+Mode order 3     1.809e-02,
+Mode order 4     7.427e-03,
+Mode order 5     3.704e-03,
+Mode order 6     6.683e-03,
+Mode order 7     1.108e-03,
+Mode order 8     3.514e-04,
+Mode order 9     3.204e-04,
+Mode order 10     1.321e-04,

@@ -1,0 +1,101 @@
+---------------------------------------------------------------------------
+                  OSCAR V3.2  - DR nominal    
+
+SB_num=1 frequency=6.2708MHz
+SB_num=2 frequency=8.361MHz
+SB_num=3 frequency=56.437MHz
+      
+Power of Carrier HOM with 1410m PRM_RoC (W):
+Power content:
+Mode order 0     1.000e+00,
+Mode order 1     8.009e-31,
+Mode order 2     2.218e-06,
+Mode order 3     1.681e-32,
+Mode order 4     2.159e-06,
+Mode order 5     3.309e-33,
+Mode order 6     4.040e-09,
+Mode order 7     3.094e-33,
+Mode order 8     1.391e-07,
+Mode order 9     4.406e-33,
+Mode order 10     4.093e-08,
+Power of SB1 HOM with 1410m PRM_RoC (W):
+Lower:
+Power content:
+Mode order 0     7.182e-01,
+Mode order 1     6.611e-31,
+Mode order 2     5.220e-02,
+Mode order 3     3.200e-31,
+Mode order 4     4.272e-03,
+Mode order 5     8.126e-32,
+Mode order 6     3.050e-02,
+Mode order 7     4.028e-32,
+Mode order 8     3.968e-02,
+Mode order 9     5.654e-32,
+Mode order 10     3.589e-02,
+Upper:
+Power content:
+Mode order 0     7.161e-01,
+Mode order 1     8.184e-31,
+Mode order 2     5.475e-02,
+Mode order 3     4.215e-31,
+Mode order 4     4.883e-03,
+Mode order 5     1.101e-31,
+Mode order 6     3.509e-02,
+Mode order 7     5.075e-32,
+Mode order 8     4.486e-02,
+Mode order 9     5.454e-32,
+Mode order 10     3.793e-02,
+Power of SB2 HOM with 1410m PRM_RoC (W):
+Lower:
+Power content:
+Mode order 0     9.999e-01,
+Mode order 1     2.178e-30,
+Mode order 2     3.455e-05,
+Mode order 3     1.597e-32,
+Mode order 4     2.392e-05,
+Mode order 5     1.910e-32,
+Mode order 6     9.850e-07,
+Mode order 7     2.023e-32,
+Mode order 8     5.126e-07,
+Mode order 9     2.324e-32,
+Mode order 10     3.408e-07,
+Upper
+Power content:
+Mode order 0     9.994e-01,
+Mode order 1     3.144e-30,
+Mode order 2     8.665e-05,
+Mode order 3     3.955e-32,
+Mode order 4     1.678e-04,
+Mode order 5     3.653e-31,
+Mode order 6     6.035e-05,
+Mode order 7     1.526e-30,
+Mode order 8     2.252e-05,
+Mode order 9     1.409e-30,
+Mode order 10     1.296e-05,
+Power of SB3 HOM with 1410m PRM_RoC (W):
+Lower
+Power content:
+Mode order 0     9.121e-01,
+Mode order 1     1.062e-30,
+Mode order 2     3.186e-02,
+Mode order 3     7.459e-32,
+Mode order 4     1.059e-02,
+Mode order 5     3.018e-32,
+Mode order 6     1.649e-02,
+Mode order 7     5.500e-32,
+Mode order 8     5.346e-03,
+Mode order 9     2.089e-32,
+Mode order 10     3.493e-03,
+Upper
+Power content:
+Mode order 0     7.630e-01,
+Mode order 1     9.990e-31,
+Mode order 2     6.541e-02,
+Mode order 3     5.366e-31,
+Mode order 4     3.369e-03,
+Mode order 5     1.590e-31,
+Mode order 6     3.183e-02,
+Mode order 7     4.642e-32,
+Mode order 8     4.085e-02,
+Mode order 9     3.468e-32,
+Mode order 10     3.150e-02,
