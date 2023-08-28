@@ -27,7 +27,7 @@ def waist_size(Lgeo, RoC, wavelength): # Calculate the waist of the beam in the 
     waist = np.sqrt((wavelength/idxn*np.pi)*np.sqrt(2*Lgeo*(RoC-2*Lgeo)))
     return waist
 
-def circ_power(P_input, waist): # Calculate the intensity of the beam in the cavity (supposing an input of 1W).
+def circ_power(P_input, waist): # Calculate the intensity of the beam in the cavity.
     power = P_input/waist**2
     return power
 
@@ -52,7 +52,7 @@ def mirror_angle(length, width): # Return in radian the mirror angles for a fixe
     angle=0.5*np.arctan((width/2)/length)
     return angle
 
-def astigmatism_losses(theta, RoC, Lgeo): # Compute astigmatism losses (index, theta angle of the faces, RoC, Geometric length)
+def astigmatism_losses(theta, RoC, Lgeo): # Compute astigmatism losses (theta angle of the faces, RoC, Geometric length)
     sqrt_value = (1 - np.sin(theta)**2) / (1 - idxn**2 * np.sin(theta)**2)
     if sqrt_value < 0:
         return np.nan
@@ -97,7 +97,7 @@ def get_lengths(carrier, Lgeo, RoC): # Returns all the optical resonnant length 
         closest_resonant_opt_length = L00(carrier, q, g)
         return closest_resonant_opt_length
 
-def plot_transmission(Lgeo, Fomc, RoC, fm, nm_max, ax): # Plot the transmission of a cavity & 
+def plot_transmission(Lgeo, Fomc, RoC, fm, nm_max, ax): # Plot the transmission of a cavity
     Lopt=2*idxn*Lgeo
     SB_trans = [Trans_factor(Lgeo, Fomc, RoC, freq, 0) for freq in fm]
     HOM_trans = [Trans_factor(Lgeo, Fomc, RoC, 0, N) for N in range(nm_max + 1)]
